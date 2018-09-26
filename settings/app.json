@@ -1,0 +1,25 @@
+{
+  "appUrl": "localhost:3002",
+  "appUIUrl": "https://fullsd.com",
+  "tokenPassword": "AkzjrKs892321w4Lu87^%7(&6_IApq3AwergJnmqaWfkEq98!eIU5vqP9L2O4c1",
+  "mongodb": {
+    "url": "mongodb://localhost:27017/onlinecoding",
+    "user": "",
+    "password": ""
+  },
+  "smtpSettings":{
+    "host": "ran.gazduire.ro",
+    "port": 587,
+    "secure": false,
+    "auth":
+    {
+      "user": "office@fullsd.com",
+      "pass": "claudiu_gombos_9379"
+    },
+    "tls":
+    {
+      "rejectUnauthorized": false
+    }
+  }
+}
+
