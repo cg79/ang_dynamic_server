@@ -74,19 +74,19 @@ router
   .prefix('/api/private')
   .use(jwtMiddleware.mainPrivateMiddleware())
   // .use(jwtMiddleware.routeJwtMiddleware())
-  .post("/", async function (ctx) {
-   console.log("ruta private");
+  .post("/", async (ctx) => {
+    console.log("ruta private");
 
     const body = ctx.request.body;
-     console.log(body);
+    console.log(body);
     const data = body.data;
-  data.tokenObj = body.tokenObj;
-    const method = body.proxy.method;
+    //data.tokenObj = body.tokenObj;
+    const { method, info} = body.proxy;
 
 
-  const module = moduleFactory.getModule(body.proxy.module);
-  const response = await module[method](data, body.tokenObj);
-  return response;
+    const module = moduleFactory.getModule(body.proxy.module);
+    const response = await module[method](data, body.tokenObj, info);
+    return response;
 
     // ctx.body = responseWrapper.success(resp);
   })

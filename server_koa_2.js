@@ -83,7 +83,7 @@ const server = app.listen(port).on("error", err => {
 
 // console.log("socket");
 
-const ioSocket = require("./modules/socket/ioSocket")();
+const ioSocket = require("./modules/socket/ioSocket");
 ioSocket.connect(server);
 
 

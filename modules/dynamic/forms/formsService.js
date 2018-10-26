@@ -1,6 +1,6 @@
 const mongoQuery = require('../../../utils/mongoQuery')();
 const ObjectID = require("mongodb").ObjectID;
-
+const ioSocket = require("../../../modules/socket/ioSocket");
 
 class FormsService {
 
@@ -49,9 +49,14 @@ class FormsService {
       upsert: true
     });
 
+    const form = await this.getForm({
+      _id: data._id
+    }, tokenObj);
+    form.evtName = 'form_updated';
+
+    ioSocket.broadcast(form);
     return dbQuestion;
   }
-
 
   async getByName(data, tokenObj) {
   // data.userId = tokenObj.id;
@@ -63,29 +68,37 @@ class FormsService {
   return doc;
 }
 
-async getForm(data, tokenObj) {
-  // data.userId = tokenObj.id;
-  const filterCriteria = {
-    _id: ObjectID(data._id),
-    userId: tokenObj.id
-  };
-  const doc = await this.getFormCollection().findOne(filterCriteria);
-  return doc;
-}
+  // async getForm(data, tokenObj) {
+  // // data.userId = tokenObj.id;
+  //   const filterCriteria = {
+  //     _id: ObjectID(data._id),
+  //     userId: tokenObj.id
+  //   };
+  //   const doc = await this.getFormCollection().findOne(filterCriteria);
+  //   return doc;
+  // }
 
 
   async getForms(data, tokenObj) {
     //data.userId = tokenObj.id;
-  const filterCriteria = data.filter || {};
+  const filterCriteria = data || {};
+  filterCriteria.userId = tokenObj.id;
+
   const doc = await this.getFormCollection().find(filterCriteria).toArray();
     return doc;
 }
 
-async deleteForm(data, tokenObj) {
-  const { filterCriteria } = data.filter;
+async deleteById(data, tokenObj) {
+  console.log('sssssssssssssssssssssssssssssssss');
+  console.log(data);
+  console.log('yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy');
+  const filterCriteria  = data.filter || {};
   if(!filterCriteria) {
     throw "no filter criteria";
   }
+  filterCriteria.userId = tokenObj.id;
+  filterCriteria._id = ObjectID(data._id);
+
   const doc = await this.getFormCollection().remove(filterCriteria);
     return doc;
 }
