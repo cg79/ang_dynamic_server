@@ -33,8 +33,8 @@ module.exports = function() {
         var response = {
           success: false,
           data: null,
-          message: obj.message,
-          text:obj.text
+          message: obj.message || obj,
+          text:obj.text || ''
         };
         return response;
       },

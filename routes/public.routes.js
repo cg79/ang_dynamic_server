@@ -71,7 +71,7 @@ router
   // console.log("ruta public");
 
   const body = ctx.request.body;
-  // console.log(body);
+  console.log('/api/pub', body);
   const data = body.data;
   const method = body.proxy.method;
   const module = moduleFactory.getModule(body.proxy.module);

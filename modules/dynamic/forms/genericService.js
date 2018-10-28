@@ -8,6 +8,7 @@ class GenericService {
     return mongoQuery.collection(name);
   }
 
+  
   async add(data, tokenObj, info) {
 
     if(!tokenObj) {

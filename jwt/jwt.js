@@ -43,7 +43,7 @@ async function mainMiddleware(ctx, next) {
     response = await next(); // next is now a function
     ctx.body = responseWrapper.success(response);
   } catch (err) {
-    // console.log("errrorrrrrrrrrrr");
+    console.log("errrorrrrrrrrrrr");
     console.log(err);
     //ctx.status = 401;
     ctx.body = responseWrapper.failure(err);
