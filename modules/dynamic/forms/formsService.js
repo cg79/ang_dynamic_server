@@ -8,6 +8,27 @@ class FormsService {
     return mongoQuery.collection('forms');
   }
 
+ async getControlsForApp(data, tokenObj) {
+    console.log(data);
+
+    const {userName,appName }  =data;
+
+    const user = await mongoQuery.collection('users').findOne({
+      firstName: userName
+    });
+    console.log(user);
+    const application = await mongoQuery.collection('applications').findOne({
+      name: appName,
+      userId: user._id.toString()
+    });
+    console.log(application);
+
+    const controls = await mongoQuery.collection('controls').find({
+      parentId: application._id.toString()
+    }).toArray(); 
+    return controls;
+  }
+
   async add(data, tokenObj) {
     console.log(data);
 
